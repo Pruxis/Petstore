@@ -8,7 +8,7 @@
  * Controller of the petstoreApp
  */
 angular.module('petstoreApp')
-  .controller('StoreCtrl', function (categories) {
-    this.categories = categories;
+  .controller('StoreCtrl', function ($scope, categories) {
+    $scope.categories = categories;
     console.log(categories);
   });
