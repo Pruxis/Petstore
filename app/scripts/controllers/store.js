@@ -8,10 +8,7 @@
  * Controller of the petstoreApp
  */
 angular.module('petstoreApp')
-  .controller('StoreCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('StoreCtrl', function (categories) {
+    this.categories = categories;
+    console.log(categories);
   });

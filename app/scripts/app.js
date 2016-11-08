@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'petstoreApp.moltin'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -32,7 +33,18 @@ angular
       .when('/store', {
         templateUrl: 'views/store.html',
         controller: 'StoreCtrl',
-        controllerAs: 'store'
+        controllerAs: 'store',
+        resolve: {
+          categories: function($q, MoltinAuth) {
+            var deferred = $q.defer();
+            $q.when(MoltinAuth).then(function(moltin) {
+              moltin.Category.List(null, function(categories) {
+                  deferred.resolve(categories);
+              });
+            })
+            return deferred.promise;
+          }
+        }
       })
       .when('/category', {
         templateUrl: 'views/category.html',
