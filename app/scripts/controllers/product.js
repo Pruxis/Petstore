@@ -8,10 +8,6 @@
  * Controller of the petstoreApp
  */
 angular.module('petstoreApp')
-  .controller('ProductCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('ProductCtrl', function ($scope, product) {
+    $scope._product = product;
   });
