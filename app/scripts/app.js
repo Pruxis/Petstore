@@ -46,10 +46,30 @@ angular
           }
         }
       })
-      .when('/category', {
+      .when('/category/:id', {
         templateUrl: 'views/category.html',
         controller: 'CategoryCtrl',
-        controllerAs: 'category'
+        controllerAs: 'category',
+        resolve: {
+          category: function($q, $route, MoltinAuth) {
+            var deferred = $q.defer();
+            $q.when(MoltinAuth).then(function(moltin) {
+              moltin.Category.Get({category: $route.current.params.id}, function(category) {
+                  deferred.resolve(category);
+              });
+            })
+            return deferred.promise;
+          },
+          products: function($q, $route, MoltinAuth) {
+            var deferred = $q.defer();
+            $q.when(MoltinAuth).then(function(moltin) {
+              moltin.Product.List({category: $route.current.params.id}, function(products) {
+                  deferred.resolve(products);
+              });
+            })
+            return deferred.promise;
+          }
+        }
       })
       .when('/product', {
         templateUrl: 'views/product.html',
