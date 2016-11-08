@@ -54,7 +54,7 @@ angular
           category: function($q, $route, MoltinAuth) {
             var deferred = $q.defer();
             $q.when(MoltinAuth).then(function(moltin) {
-              moltin.Category.Get({category: $route.current.params.id}, function(category) {
+              moltin.Category.Get($route.current.params.id, function(category) {
                   deferred.resolve(category);
               });
             })
