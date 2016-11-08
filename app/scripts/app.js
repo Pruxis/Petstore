@@ -71,10 +71,21 @@ angular
           }
         }
       })
-      .when('/product', {
+      .when('/product/:id', {
         templateUrl: 'views/product.html',
         controller: 'ProductCtrl',
-        controllerAs: 'product'
+        controllerAs: 'product',
+        resolve: {
+          product: function($q, $route, MoltinAuth) {
+            var deferred = $q.defer();
+            $q.when(MoltinAuth).then(function(moltin) {
+              moltin.Product.Get($route.current.params.id, function(product) {
+                  deferred.resolve(product);
+              });
+            })
+            return deferred.promise;
+          }
+        }
       })
       .when('/cart', {
         templateUrl: 'views/cart.html',
