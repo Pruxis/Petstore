@@ -8,10 +8,9 @@
  * Controller of the petstoreApp
  */
 angular.module('petstoreApp')
-  .controller('ProductCtrl', function ($scope, product, moltin, $timeout) {
+  .controller('ProductCtrl', function($scope, product, moltin, $timeout) {
     $scope._product = product;
     $scope.addStatus = null;
-    console.log(moltin);
 
     $scope.addCart = function() {
       $scope.addStatus = 'Adding to cart';
@@ -23,6 +22,12 @@ angular.module('petstoreApp')
        * # MoltinAuth
        * Moltin API
        */
-      moltin.Cart.Insert(product.id, 1, null);
+      moltin.Cart.Insert(product.id, 1, null, function () {
+        $scope.addStatus = 'Success!';
+        $scope.$apply();
+        $timeout(function() {
+          $scope.addStatus = null;
+        }, 1000);
+      });
     }
   });
