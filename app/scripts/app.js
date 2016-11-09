@@ -23,7 +23,18 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        resolve: {
+          products: function($q, MoltinAuth) {
+            var deferred = $q.defer();
+            $q.when(MoltinAuth).then(function(moltin) {
+              moltin.Product.List(null, function(products) {
+                deferred.resolve(products);
+              });
+            });
+            return deferred.promis;
+          }
+        }
       })
       .when('/about', {
         templateUrl: 'views/about.html',
@@ -41,7 +52,7 @@ angular
               moltin.Category.List(null, function(categories) {
                   deferred.resolve(categories);
               });
-            })
+            });
             return deferred.promise;
           }
         }
