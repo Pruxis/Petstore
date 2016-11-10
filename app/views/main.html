@@ -127,7 +127,7 @@
     </div>
     <div class="row">
       <div id="products-carousel" class="all-products">
-        <div class="col-md-3">
+        <div ng-repeat="product in featuredProducts" class="col-md-3">
           <div class="single-product">
             <div class="product-img">
               <a href="product-details.html">
@@ -135,13 +135,19 @@
                 <img src="img/products/9.jpg" class="secondary-img" alt="Product Image" />
               </a>
               <div class="product-overlay"></div>
+              <span ng-if="product.sale_price" class="tag sale">sale</span>
               <a class="quick-view modal-view" href="#" data-toggle="modal" data-target="#productModal"><i class="pe-7s-search"></i></a>
             </div>
             <div class="product-info">
-              <h3 class="product-name"><a href="product-details.html">Dog food produts</a></h3>
+              <h3 class="product-name"><a href="product-details.html">{{product.title}}</a></h3>
               <div class="product-price">
-                <span class="special-price">$<span>35</span>.99</span>
-                <span class="old-price">$<span>40</span>.99</span>
+                <div ng-if="product.sale_price">
+                  <span class="special-price"><span>€{{product.sale_price}}</span></span>
+                  <span class="old-price">{{product.price.data.formatted.with_tax}}</span>
+                </div>
+                <div ng-if="!product.sale_price">
+                  <span class="regular-price">{{product.price.data.formatted.with_tax}}</span>
+                </div>
               </div>
               <div class="cart-btn-container">
                 <a href="#" class="cart-btn">add to cart</a>
@@ -263,7 +269,6 @@
       </div>
     </div>
   </div>
-</div>
 <!-- our-products-area end -->
 <!-- testimonial-area start -->
 <div id="testimonial" class="testimonial-area">

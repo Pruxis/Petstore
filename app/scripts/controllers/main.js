@@ -8,10 +8,8 @@
  * Controller of the petstoreApp
  */
 angular.module('petstoreApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, moltin) {
+    var featured = moltin.Category.List({slug: 'featured'})[0].id; // sketchy workaround for .Search
+    $scope.featuredProducts = moltin.Product.Search({category: featured});
+    console.log($scope.featuredProducts);
   });

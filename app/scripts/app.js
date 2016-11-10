@@ -25,14 +25,8 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main',
         resolve: {
-          products: function($q, MoltinAuth) {
-            var deferred = $q.defer();
-            $q.when(MoltinAuth).then(function(moltin) {
-              moltin.Product.List(null, function(products) {
-                deferred.resolve(products);
-              });
-            });
-            return deferred.promis;
+          moltin: function($q, MoltinAuth) {
+            return MoltinAuth
           }
         }
       })
